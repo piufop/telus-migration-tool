@@ -1,0 +1,3 @@
+[submodule "migration-cli"]
+	path = migration-cli
+	url = git@github.com:contentful/migration-cli.git

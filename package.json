@@ -1,0 +1,25 @@
+{
+  "name": "telus-migration-tool",
+  "version": "1.0.0",
+  "description": "Telus migration tool",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piufop/telus-migration-tool.git"
+  },
+  "keywords": [
+    "telus",
+    "migration",
+    "contentful"
+  ],
+  "author": "tw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/piufop/telus-migration-tool/issues"
+  },
+  "homepage": "https://github.com/piufop/telus-migration-tool#readme"
+}

@@ -44,6 +44,7 @@ const {
   SpaceAccessError
 } = require('../migration-cli/lib/errors');
 const createMigrationParser = require('../migration-cli/lib/migration-parser');
+const createContentMigrationParser = require('../lib/content-migration-parser');
 const renderPlanMessages = require('../migration-cli/bin/lib/plan-messages');
 const renderStepsErrors = require('../migration-cli/bin/lib/steps-errors');
 
@@ -54,6 +55,100 @@ const renderFailedValidation = function (errors, renderer) {
     chalk`🚨  {bold.red Migration unsuccessful}`
   ].join('\n');
 };
+
+const contentMigration = Bluebird.coroutine(function * () {
+  const spaceId = argv.spaceId;
+  const key = process.env.API_KEY;
+
+  const config = {
+    accessToken: key,
+    spaceId
+  };
+
+  const clientConfig = Object.assign({
+    application: `contentful.migration-cli/${version}`,
+    headers: {
+      'X-Contentful-Migration-Id': uuid()
+    }
+  }, config);
+
+  const client = createManagementClient(clientConfig);
+  const makeRequest = function (requestConfig) {
+    requestConfig.url = path.join(config.spaceId, requestConfig.url);
+    return client.rawRequest(requestConfig);
+  };
+
+  let plan;
+  const migrationParser = createContentMigrationParser(makeRequest, {
+    onPlan: function (_plan) {
+      plan = _plan;
+    }
+  });
+
+  let requests;
+  
+  try {
+    requests = yield migrationParser(migrationFunction);
+  } catch (error) {
+    let message = error.message;
+    if (error instanceof StepsValidationError) {
+      message = renderFailedValidation(error.details, renderStepsErrors);
+    }
+    if (error instanceof ChunksValidationError) {
+      message = renderFailedValidation(error.details, renderStepsErrors);
+    }
+    if (error instanceof PayloadValidationError) {
+      const planAndErrors = _.zip(plan, error.details);
+      message = renderFailedValidation(planAndErrors, renderPlanMessages.withErrors);
+    }
+    if (error instanceof SpaceAccessError) {
+      message = [
+        chalk`{red.bold ${error.message}}\n`,
+        chalk`🚨  {bold.red Migration unsuccessful}`
+      ].join('\n');
+    }
+    console.log(message);
+
+    process.exit(1);
+  }
+  
+  console.log(chalk`{bold.green The following migration has been planned}\n`);
+  console.log(renderPlanMessages.withoutErrors(plan));
+  console.log('\n');
+  
+  const tasks = requests.map((request) => {
+    return {
+      title: `${request.method} ${request.url} at V${request.headers['X-Contentful-Version']}`,
+      task: () => {
+        return makeRequest(request).catch((error) => {
+          const parsed = JSON.parse(error.message);
+          throw new Error(JSON.stringify(parsed.details) || parsed.message);
+        });
+      }
+    };
+  });
+
+
+  const answers = yield inquirer.prompt([{
+    type: 'confirm',
+    message: 'Do you want to apply the migration',
+    name: 'applyMigration'
+  }]);
+
+  if (answers.applyMigration) {
+    try {
+      const successfulMigration = yield (new Listr(tasks)).run();
+      console.log(chalk`🎉  {bold.green Migration successful}`);
+      return successfulMigration;
+    } catch (err) {
+      console.log(chalk`🚨  {bold.red Migration unsuccessful}`);
+      console.log(chalk`{red ${err.message}}`);
+    }
+  } else {
+    console.log(chalk`⚠️  {bold.yellow Migration aborted}`);
+  }
+
+});
 
 const run = Bluebird.coroutine(function * () {
   const spaceId = argv.spaceId;
@@ -138,7 +233,7 @@ const run = Bluebird.coroutine(function * () {
     try {
       const successfulMigration = yield (new Listr(tasks)).run();
       console.log(chalk`🎉  {bold.green Migration successful}`);
-      return successfulMigration;
+      return successfulMigration && contentMigration();
     } catch (err) {
       console.log(chalk`🚨  {bold.red Migration unsuccessful}`);
       console.log(chalk`{red ${err.message}}`);

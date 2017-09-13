@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "test": "",
+    "test": "NODE_ENV=test mocha 'test/unit/**/*.spec.js'",
     "postinstall": "npm install migration-cli"
   },
   "repository": {
@@ -24,6 +24,11 @@
   },
   "homepage": "https://github.com/piufop/telus-migration-tool#readme",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "contentful-migration-cli": "file:migration-cli"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^3.5.3"
   }
 }

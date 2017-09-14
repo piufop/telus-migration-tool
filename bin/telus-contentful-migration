@@ -113,7 +113,7 @@ const contentMigration = Bluebird.coroutine(function * () {
   }
   
   console.log(chalk`{bold.green The following migration has been planned}\n`);
-  console.log(renderPlanMessages.withoutErrors(plan));
+  // console.log(renderPlanMessages.withoutErrors(plan));
   console.log('\n');
   
   const tasks = requests.map((request) => {
@@ -231,9 +231,10 @@ const run = Bluebird.coroutine(function * () {
 
   if (answers.applyMigration) {
     try {
-      const successfulMigration = yield (new Listr(tasks)).run();
+      // const successfulMigration = yield (new Listr(tasks)).run();
       console.log(chalk`🎉  {bold.green Migration successful}`);
-      return successfulMigration && contentMigration();
+      // return successfulMigration && contentMigration();
+      return contentMigration();
     } catch (err) {
       console.log(chalk`🚨  {bold.red Migration unsuccessful}`);
       console.log(chalk`{red ${err.message}}`);

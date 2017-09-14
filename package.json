@@ -25,7 +25,12 @@
   "homepage": "https://github.com/piufop/telus-migration-tool#readme",
   "dependencies": {
     "bluebird": "^3.5.0",
-    "contentful-migration-cli": "file:migration-cli"
+    "chalk": "^2.1.0",
+    "contentful-migration-cli": "file:migration-cli",
+    "inquirer": "^3.2.3",
+    "listr": "^0.12.0",
+    "uuid": "^3.1.0",
+    "yargs": "^8.0.2"
   },
   "devDependencies": {
     "chai": "^4.1.2",

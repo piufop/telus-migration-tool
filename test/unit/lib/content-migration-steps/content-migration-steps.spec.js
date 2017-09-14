@@ -9,12 +9,24 @@ describe('content-migration-steps', () => {
       const contentMigrationScript = (migration) => {
           if (migration.supportsContent) {
             const songContent = migration.editContent('song');
-            songContent.copyField('name').to('new name');
+            songContent.copyField('author').toField('new-author');
           }
       };
-
       createSteps(contentMigrationScript).then((steps) => {
-        expect(false).to.be.a('string');
+        expect(steps).to.be.a('Array');
+        expect(steps).to.have.length(1);
+        expect(steps).to.deep.include({
+          type: 'contentField/copy',
+          meta: { 
+            contentTypeInstanceId: 'content/song/0',
+            fieldInstanceId: 'fields/song/new-author/0' 
+          },
+          payload: { 
+            contentTypeId: 'song', 
+            fromId: 'song', 
+            toId: 'new-author' 
+          }
+        });
         done();
       });
     });

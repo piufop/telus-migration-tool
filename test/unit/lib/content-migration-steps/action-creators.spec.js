@@ -5,22 +5,25 @@ const actionCreators = require(`${ROOT_DIR}/lib/content-migration-steps/action-c
 
 describe('action-creators', () => {
   describe('when executing a migration', () => {
-    it.only('create actions', () => {
-      const id = 1;
-      const contentTypeInstanceId = 0;
-      const property = 'name';
-      const value = 'John';
-      
-      const result = actionCreators.content.update(id, contentTypeInstanceId, property, value);
+    it('creates field copy action', () => {
+      const contentTypeId = 0;
+      const contentTypeInstanceId = 1;
+      const fromId = 'author';
+      const toId = 'new-author';
+      const fieldInstanceId = 3;
 
+      const result = actionCreators.contentField.copy(contentTypeId, fromId, toId, contentTypeInstanceId, fieldInstanceId);
+      
       expect(result).to.be.a('object');
-      expect(result).to.have.property('type', 'content/update');
-      expect(result).to.have.deep.property('meta', { contentTypeInstanceId: 0 });
+      expect(result).to.have.property('type', 'contentField/copy');
+      expect(result).to.have.deep.property('meta', {
+        contentTypeInstanceId: 'content/0/1',
+        fieldInstanceId: 'fields/author/new-author/3'
+      });
       expect(result).to.have.deep.property('payload', {
-        contentTypeId: 1,
-        props: {
-          name: 'John'
-        }
+        contentTypeId: 0,
+        fromId: 'author',
+        toId: 'new-author'
       });
     });
   });

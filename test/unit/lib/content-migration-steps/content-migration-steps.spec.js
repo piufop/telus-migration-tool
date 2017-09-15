@@ -19,11 +19,11 @@ describe('content-migration-steps', () => {
           type: 'contentField/copy',
           meta: { 
             contentTypeInstanceId: 'content/song/0',
-            fieldInstanceId: 'fields/song/new-author/0' 
+            fieldInstanceId: 'fields/author/new-author/0' 
           },
           payload: { 
             contentTypeId: 'song', 
-            fromId: 'song', 
+            fromId: 'author', 
             toId: 'new-author' 
           }
         });

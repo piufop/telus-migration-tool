@@ -84,7 +84,7 @@ describe('content-migration-payloads', () => {
 
     expect(payloads).to.be.a('Array');
     expect(payloads).to.have.length(1);
-    expect(payloads).to.have.deep.include([{
+    expect(payloads).to.have.deep.equal([{
       "payload": {
         "fields": {
           "title": {
@@ -201,7 +201,7 @@ describe('content-migration-payloads', () => {
 
     expect(payloads).to.be.a('Array');
     expect(payloads).to.have.length(1);
-    expect(payloads).to.have.deep.include([{
+    expect(payloads).to.have.deep.equal([{
       "payload": {
         "fields": {
           "title": {

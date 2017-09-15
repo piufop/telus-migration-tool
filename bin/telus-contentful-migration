@@ -128,7 +128,6 @@ const contentMigration = Bluebird.coroutine(function * () {
     };
   });
 
-
   const answers = yield inquirer.prompt([{
     type: 'confirm',
     message: 'Do you want to apply the migration',

@@ -45,7 +45,7 @@ const {
 } = require('../migration-cli/lib/errors');
 const createMigrationParser = require('../migration-cli/lib/migration-parser');
 const createContentMigrationParser = require('../lib/content-migration-parser');
-const renderPlanMessages = require('../migration-cli/bin/lib/plan-messages');
+const renderContentPlanMessages = require('./lib/content-plan-messages');
 const renderStepsErrors = require('../migration-cli/bin/lib/steps-errors');
 
 const renderFailedValidation = function (errors, renderer) {
@@ -99,7 +99,7 @@ const contentMigration = Bluebird.coroutine(function * () {
     }
     if (error instanceof PayloadValidationError) {
       const planAndErrors = _.zip(plan, error.details);
-      message = renderFailedValidation(planAndErrors, renderPlanMessages.withErrors);
+      message = renderFailedValidation(planAndErrors, renderContentPlanMessages.withErrors);
     }
     if (error instanceof SpaceAccessError) {
       message = [
@@ -113,7 +113,7 @@ const contentMigration = Bluebird.coroutine(function * () {
   }
   
   console.log(chalk`{bold.green The following migration has been planned}\n`);
-  // console.log(renderPlanMessages.withoutErrors(plan));
+  console.log(renderContentPlanMessages.withoutErrors(plan));
   console.log('\n');
   
   const tasks = requests.map((request) => {
@@ -192,7 +192,7 @@ const run = Bluebird.coroutine(function * () {
     }
     if (error instanceof PayloadValidationError) {
       const planAndErrors = _.zip(plan, error.details);
-      message = renderFailedValidation(planAndErrors, renderPlanMessages.withErrors);
+      message = renderFailedValidation(planAndErrors, renderContentPlanMessages.withErrors);
     }
     if (error instanceof SpaceAccessError) {
       message = [
@@ -206,7 +206,7 @@ const run = Bluebird.coroutine(function * () {
   }
 
   console.log(chalk`{bold.green The following migration has been planned}\n`);
-  console.log(renderPlanMessages.withoutErrors(plan));
+  console.log(renderContentPlanMessages.withoutErrors(plan));
   console.log('\n');
 
   const tasks = requests.map((request) => {

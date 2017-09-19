@@ -42,4 +42,26 @@ describe('content-type-ids-in-plan', () => {
     expect(contentTypeIds).to.have.length(2);
     expect(contentTypeIds).to.deep.equal(['song', 'song1']);
   });
+
+  it('get content type ids from transformation plan', () => {
+    const plan = [
+      [
+        {
+          "type": "content/transform",
+          "meta": {
+            "contentTypeInstanceId": "content/song/0"
+          },
+          "payload": {
+            "contentTypeId": "song"
+          }
+        }
+      ]
+    ];
+
+    const contentTypeIds = contentTypeIdsInPlan(plan);
+
+    expect(contentTypeIds).to.be.a('Array');
+    expect(contentTypeIds).to.have.length(1);
+    expect(contentTypeIds).to.deep.equal(['song']);
+  });
 });

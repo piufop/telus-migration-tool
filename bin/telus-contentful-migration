@@ -79,9 +79,13 @@ const contentMigration = Bluebird.coroutine(function * () {
   };
 
   let plan;
+  let entries;
   const migrationParser = createContentMigrationParser(makeRequest, {
     onPlan: function (_plan) {
       plan = _plan;
+    },
+    onEntries: (_entries) => {
+      entries = _entries;
     }
   });
 
@@ -130,7 +134,7 @@ const contentMigration = Bluebird.coroutine(function * () {
 
   const answers = yield inquirer.prompt([{
     type: 'confirm',
-    message: 'Do you want to apply the migration',
+    message: 'Do you want to apply the migration, this will affect ' +  chalk`{bold.yellow ${entries.count}} entries`,
     name: 'applyMigration'
   }]);
 

@@ -8,6 +8,8 @@ const getMainAction = function (chunk) {
     return 'contentType/create';
   } else if (chunk.find((step) => step.type === 'contentField/copy')) {
     return 'contentField/copy';
+  } else if (chunk.find((step) => step.type === 'content/transform')) {
+    return 'content/transform';
   }
   return 'contentType/update';
 };
@@ -24,6 +26,9 @@ const renderChunk = (chunk, errors) => {
   } else if (mainAction === 'contentField/copy') {
     message.push(chalk`{bold.underline Copy Contents of} {bold.yellow ${contentType}}`);
     message.push(chalk`\n  Copy field {yellow ${chunk[0].payload.fromId}} to {yellow ${chunk[0].payload.toId}}`);
+  } else if (mainAction === 'content/transform') {
+    message.push(chalk`{bold.underline Transform Contents of} {bold.yellow ${contentType}}`);
+    message.push(chalk`\n  Apply transformation function \n  {yellow ${chunk[0].transform}}`);
   }
 
   const contentTypeChanges = chunk.filter((step) => step.type.startsWith('contentType'));
@@ -68,7 +73,7 @@ const renderChunk = (chunk, errors) => {
     }
   }
 
-  if (mainAction === 'contentField/copy') {
+  if (mainAction === 'contentField/copy' || mainAction === 'content/transform') {
     message.push(chalk`\n{bold.underline Publish Contents of} {bold.yellow ${contentType}}`);
   } else {
     message.push(chalk`\n{bold.underline Publish Content Type} {bold.yellow ${contentType}}`);

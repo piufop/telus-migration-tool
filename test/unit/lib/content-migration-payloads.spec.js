@@ -14,6 +14,7 @@ describe('content-migration-payloads', () => {
             "fieldInstanceId": "fields/title/new-title/0"
           },
           "payload": {
+            "transform": (content) => (content),
             "contentTypeId": "song",
             "fromId": "title",
             "toId": "new-title"
@@ -114,6 +115,7 @@ describe('content-migration-payloads', () => {
           },
           "payload": {
             "contentTypeId": "song",
+            "transform": (content) => (content),
             "fromId": "title",
             "toId": "new-title"
           }
@@ -126,6 +128,7 @@ describe('content-migration-payloads', () => {
           },
           "payload": {
             "contentTypeId": "song",
+            "transform": (content) => (content),
             "fromId": "name",
             "toId": "album-name"
           }
@@ -340,6 +343,7 @@ describe('content-migration-payloads', () => {
           },
           "payload": {
             "contentTypeId": "song",
+            "transform": (content) => (content),
             "fromId": "title",
             "toId": "new-title"
           }
@@ -454,6 +458,7 @@ describe('content-migration-payloads', () => {
           },
           "payload": {
             "contentTypeId": "song",
+            "transform": (content) => (content),
             "fromId": "title",
             "toId": "new-title"
           }
@@ -481,6 +486,7 @@ describe('content-migration-payloads', () => {
           },
           "payload": {
             "contentTypeId": "song",
+            "transform": (content) => (content),
             "fromId": "title",
             "toId": "new-title"
           }
@@ -580,6 +586,107 @@ describe('content-migration-payloads', () => {
       },
       "meta": {
         "version": 10,
+        "entryId": "2DiUM9ZZMsIGKsM08YYQge",
+        "contentTypeId": "song"
+      }
+    }]);
+  });
+
+  it('applies transform to a content', () => {
+    const plan = [
+      [
+        {
+          "type": "contentField/copy",
+          "meta": {
+            "contentTypeInstanceId": "content/song/0",
+            "fieldInstanceId": "fields/title/new-title/0"
+          },
+          "payload": {
+            "contentTypeId": "song",
+            "transform": (content) => (content.slice(0, 2)),
+            "fromId": "title",
+            "toId": "new-title"
+          }
+        }
+      ]
+    ];
+
+    const entries = [
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "tjj66gb8nfwn"
+            }
+          },
+          "id": "2DiUM9ZZMsIGKsM08YYQge",
+          "type": "Entry",
+          "createdAt": "2017-09-07T19:50:04.231Z",
+          "updatedAt": "2017-09-07T19:51:07.532Z",
+          "createdBy": {
+            "sys": {
+              "type": "Link",
+              "linkType": "User",
+              "id": "4EHGw9NLlQYCVy1RY5kHuI"
+            }
+          },
+          "updatedBy": {
+            "sys": {
+              "type": "Link",
+              "linkType": "User",
+              "id": "4EHGw9NLlQYCVy1RY5kHuI"
+            }
+          },
+          "publishedCounter": 1,
+          "version": 8,
+          "publishedBy": {
+            "sys": {
+              "type": "Link",
+              "linkType": "User",
+              "id": "4EHGw9NLlQYCVy1RY5kHuI"
+            }
+          },
+          "publishedVersion": 7,
+          "firstPublishedAt": "2017-09-07T19:51:07.532Z",
+          "publishedAt": "2017-09-07T19:51:07.532Z",
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "song"
+            }
+          }
+        },
+        "fields": {
+          "title": {
+            "en-US": "Bacon Cru"
+          },
+          "new-title": {
+            "en-US": ""
+          }
+        }
+      }
+    ];
+
+    const payloads = contentMigrationPayloads(plan, entries);
+
+    expect(payloads).to.be.a('Array');
+    expect(payloads).to.have.length(1);
+    expect(payloads).to.have.deep.equal([{
+      "payload": {
+        "fields": {
+          "title": {
+            "en-US": "Bacon Cru"
+          },
+          "new-title": {
+            "en-US": "Ba"
+          }
+        }
+      },
+      "meta": {
+        "version": 8,
         "entryId": "2DiUM9ZZMsIGKsM08YYQge",
         "contentTypeId": "song"
       }

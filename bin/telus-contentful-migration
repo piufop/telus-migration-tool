@@ -115,6 +115,10 @@ const contentMigration = Bluebird.coroutine(function * () {
 
     process.exit(1);
   }
+
+  if (entries.count === 0) {
+    return true;
+  }
   
   console.log(chalk`{bold.green The following migration has been planned}\n`);
   console.log(renderContentPlanMessages.withoutErrors(plan));
@@ -225,7 +229,6 @@ const run = Bluebird.coroutine(function * () {
     };
   });
 
-
   const answers = yield inquirer.prompt([{
     type: 'confirm',
     message: 'Do you want to apply the migration',
@@ -234,10 +237,9 @@ const run = Bluebird.coroutine(function * () {
 
   if (answers.applyMigration) {
     try {
-      // const successfulMigration = yield (new Listr(tasks)).run();
+      const successfulMigration = yield (new Listr(tasks)).run();
       console.log(chalk`🎉  {bold.green Migration successful}`);
-      // return successfulMigration && contentMigration();
-      return contentMigration();
+      return successfulMigration && contentMigration();
     } catch (err) {
       console.log(chalk`🚨  {bold.red Migration unsuccessful}`);
       console.log(chalk`{red ${err.message}}`);

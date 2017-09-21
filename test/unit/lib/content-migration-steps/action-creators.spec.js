@@ -11,8 +11,9 @@ describe('action-creators', () => {
       const fromId = 'author';
       const toId = 'new-author';
       const fieldInstanceId = 3;
+      const transformation = () => {};
 
-      const result = actionCreators.contentField.copy(contentTypeId, fromId, toId, contentTypeInstanceId, fieldInstanceId);
+      const result = actionCreators.contentField.copy(contentTypeId, fromId, toId, transformation, contentTypeInstanceId, fieldInstanceId);
       
       expect(result).to.be.a('object');
       expect(result).to.have.property('type', 'contentField/copy');
@@ -22,6 +23,31 @@ describe('action-creators', () => {
       });
       expect(result).to.have.deep.property('payload', {
         contentTypeId: 0,
+        transform: transformation,
+        fromId: 'author',
+        toId: 'new-author'
+      });
+    });
+
+    it('creates field copy action with transformation', () => {
+      const contentTypeId = 0;
+      const contentTypeInstanceId = 1;
+      const fromId = 'author';
+      const toId = 'new-author';
+      const fieldInstanceId = 3;
+      const transformation = () => {};
+
+      const result = actionCreators.contentField.copy(contentTypeId, fromId, toId, transformation, contentTypeInstanceId, fieldInstanceId);
+      
+      expect(result).to.be.a('object');
+      expect(result).to.have.property('type', 'contentField/copy');
+      expect(result).to.have.deep.property('meta', {
+        contentTypeInstanceId: 'content/0/1',
+        fieldInstanceId: 'fields/author/new-author/3'
+      });
+      expect(result).to.have.deep.property('payload', {
+        contentTypeId: 0,
+        transform: transformation,
         fromId: 'author',
         toId: 'new-author'
       });

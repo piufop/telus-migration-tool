@@ -9,7 +9,7 @@ describe('action-creators', () => {
       const contentTypeId = 0;
       const contentTypeInstanceId = 1;
       const fromId = 'author';
-      const toId = 'new-author';
+      const toId = 'editor';
       const fieldInstanceId = 3;
       const transformation = () => {};
 
@@ -19,13 +19,13 @@ describe('action-creators', () => {
       expect(result).to.have.property('type', 'contentField/copy');
       expect(result).to.have.deep.property('meta', {
         contentTypeInstanceId: 'content/0/1',
-        fieldInstanceId: 'fields/author/new-author/3'
+        fieldInstanceId: 'fields/author/editor/3'
       });
       expect(result).to.have.deep.property('payload', {
         contentTypeId: 0,
         transform: transformation,
         fromId: 'author',
-        toId: 'new-author'
+        toId: 'editor'
       });
     });
 
@@ -33,7 +33,7 @@ describe('action-creators', () => {
       const contentTypeId = 0;
       const contentTypeInstanceId = 1;
       const fromId = 'author';
-      const toId = 'new-author';
+      const toId = 'editor';
       const fieldInstanceId = 3;
       const transformation = () => {};
 
@@ -43,13 +43,13 @@ describe('action-creators', () => {
       expect(result).to.have.property('type', 'contentField/copy');
       expect(result).to.have.deep.property('meta', {
         contentTypeInstanceId: 'content/0/1',
-        fieldInstanceId: 'fields/author/new-author/3'
+        fieldInstanceId: 'fields/author/editor/3'
       });
       expect(result).to.have.deep.property('payload', {
         contentTypeId: 0,
         transform: transformation,
         fromId: 'author',
-        toId: 'new-author'
+        toId: 'editor'
       });
     });
   });

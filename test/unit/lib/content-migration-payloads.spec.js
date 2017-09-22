@@ -11,13 +11,13 @@ describe('content-migration-payloads', () => {
           "type": "contentField/copy",
           "meta": {
             "contentTypeInstanceId": "content/song/0",
-            "fieldInstanceId": "fields/title/new-title/0"
+            "fieldInstanceId": "fields/title/track/0"
           },
           "payload": {
             "transform": (content) => (content),
             "contentTypeId": "song",
             "fromId": "title",
-            "toId": "new-title"
+            "toId": "track"
           }
         }]
     ];
@@ -72,9 +72,9 @@ describe('content-migration-payloads', () => {
         },
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
+          "track": {
             "en-US": ""
           }
         }
@@ -89,10 +89,10 @@ describe('content-migration-payloads', () => {
       "payload": {
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
-            "en-US": "Bacon Cru"
+          "track": {
+            "en-US": "Break on through"
           }
         }
       },
@@ -111,26 +111,26 @@ describe('content-migration-payloads', () => {
           "type": "contentField/copy",
           "meta": {
             "contentTypeInstanceId": "content/song/0",
-            "fieldInstanceId": "fields/title/new-title/0"
+            "fieldInstanceId": "fields/title/track/0"
           },
           "payload": {
             "contentTypeId": "song",
             "transform": (content) => (content),
             "fromId": "title",
-            "toId": "new-title"
+            "toId": "track"
           }
         },
         {
           "type": "contentField/copy",
           "meta": {
             "contentTypeInstanceId": "content/song/0",
-            "fieldInstanceId": "fields/name/album-name/0"
+            "fieldInstanceId": "fields/name/album/0"
           },
           "payload": {
             "contentTypeId": "song",
             "transform": (content) => (content),
             "fromId": "name",
-            "toId": "album-name"
+            "toId": "album"
           }
         }]
     ];
@@ -185,15 +185,15 @@ describe('content-migration-payloads', () => {
         },
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
+          "track": {
             "en-US": ""
           },
           "name": {
-            "en-US": "Open Doors"
+            "en-US": "The Doors"
           },
-          "album-name": {
+          "album": {
             "en-US": ""
           }
         }
@@ -208,16 +208,16 @@ describe('content-migration-payloads', () => {
       "payload": {
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
-            "en-US": "Bacon Cru"
+          "track": {
+            "en-US": "Break on through"
           },
           "name": {
-            "en-US": "Open Doors"
+            "en-US": "The Doors"
           },
-          "album-name": {
-            "en-US": "Open Doors"
+          "album": {
+            "en-US": "The Doors"
           }
         }
       },
@@ -236,7 +236,7 @@ describe('content-migration-payloads', () => {
           type: "content/transform",
           transform: (entry) => {
             Object.keys(entry.fields.title).forEach((key) => {
-              entry.fields['new-title'][key] = entry.fields.title[key].slice(0, 5);
+              entry.fields['track'][key] = entry.fields.title[key].slice(0, 5);
             });
             return entry;
           },
@@ -300,9 +300,9 @@ describe('content-migration-payloads', () => {
         },
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
+          "track": {
             "en-US": ""
           }
         }
@@ -317,10 +317,10 @@ describe('content-migration-payloads', () => {
       "payload": {
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
-            "en-US": "Bacon"
+          "track": {
+            "en-US": "Break"
           }
         }
       },
@@ -339,19 +339,19 @@ describe('content-migration-payloads', () => {
           "type": "contentField/copy",
           "meta": {
             "contentTypeInstanceId": "content/song/0",
-            "fieldInstanceId": "fields/title/new-title/0"
+            "fieldInstanceId": "fields/title/track/0"
           },
           "payload": {
             "contentTypeId": "song",
             "transform": (content) => (content),
             "fromId": "title",
-            "toId": "new-title"
+            "toId": "track"
           }
         }, {
           type: "content/transform",
           transform: (entry) => {
             Object.keys(entry.fields.title).forEach((key) => {
-              entry.fields['new-title'][key] = entry.fields.title[key].slice(0, 5);
+              entry.fields['track'][key] = entry.fields.title[key].slice(0, 5);
             });
             return entry;
           },
@@ -415,9 +415,9 @@ describe('content-migration-payloads', () => {
         },
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
+          "track": {
             "en-US": ""
           }
         }
@@ -432,10 +432,10 @@ describe('content-migration-payloads', () => {
       "payload": {
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
-            "en-US": "Bacon"
+          "track": {
+            "en-US": "Break"
           }
         }
       },
@@ -454,19 +454,19 @@ describe('content-migration-payloads', () => {
           "type": "contentField/copy",
           "meta": {
             "contentTypeInstanceId": "content/song/0",
-            "fieldInstanceId": "fields/title/new-title/0"
+            "fieldInstanceId": "fields/title/track/0"
           },
           "payload": {
             "contentTypeId": "song",
             "transform": (content) => (content),
             "fromId": "title",
-            "toId": "new-title"
+            "toId": "track"
           }
         }, {
           type: "content/transform",
           transform: (entry) => {
             Object.keys(entry.fields.title).forEach((key) => {
-              entry.fields['new-title'][key] = entry.fields.title[key].slice(0, 5);
+              entry.fields['track'][key] = entry.fields.title[key].slice(0, 5);
             });
             return entry;
           },
@@ -482,13 +482,13 @@ describe('content-migration-payloads', () => {
           "type": "contentField/copy",
           "meta": {
             "contentTypeInstanceId": "content/song/0",
-            "fieldInstanceId": "fields/title/new-title/0"
+            "fieldInstanceId": "fields/title/track/0"
           },
           "payload": {
             "contentTypeId": "song",
             "transform": (content) => (content),
             "fromId": "title",
-            "toId": "new-title"
+            "toId": "track"
           }
         }
       ]
@@ -544,9 +544,9 @@ describe('content-migration-payloads', () => {
         },
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
+          "track": {
             "en-US": ""
           }
         }
@@ -561,10 +561,10 @@ describe('content-migration-payloads', () => {
       "payload": {
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
-            "en-US": "Bacon"
+          "track": {
+            "en-US": "Break"
           }
         }
       },
@@ -577,10 +577,10 @@ describe('content-migration-payloads', () => {
       "payload": {
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
-            "en-US": "Bacon Cru"
+          "track": {
+            "en-US": "Break on through"
           }
         }
       },
@@ -599,13 +599,13 @@ describe('content-migration-payloads', () => {
           "type": "contentField/copy",
           "meta": {
             "contentTypeInstanceId": "content/song/0",
-            "fieldInstanceId": "fields/title/new-title/0"
+            "fieldInstanceId": "fields/title/track/0"
           },
           "payload": {
             "contentTypeId": "song",
             "transform": (content) => (content.slice(0, 2)),
             "fromId": "title",
-            "toId": "new-title"
+            "toId": "track"
           }
         }
       ]
@@ -661,9 +661,9 @@ describe('content-migration-payloads', () => {
         },
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
+          "track": {
             "en-US": ""
           }
         }
@@ -678,10 +678,10 @@ describe('content-migration-payloads', () => {
       "payload": {
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
-            "en-US": "Ba"
+          "track": {
+            "en-US": "Br"
           }
         }
       },
@@ -700,13 +700,13 @@ describe('content-migration-payloads', () => {
           "type": "contentField/copy",
           "meta": {
             "contentTypeInstanceId": "content/song/0",
-            "fieldInstanceId": "fields/title/new-title/0"
+            "fieldInstanceId": "fields/title/track/0"
           },
           "payload": {
             "contentTypeId": "song",
             "transform": (content) => (content.slice(0, 2)),
             "fromId": "title",
-            "toId": "new-title"
+            "toId": "track"
           }
         }
       ]
@@ -761,8 +761,8 @@ describe('content-migration-payloads', () => {
           }
         },
         "fields": {
-          "title": "Bacon Cru",
-          "new-title": ""
+          "title": "Break on through",
+          "track": ""
         }
       }
     ];
@@ -774,8 +774,8 @@ describe('content-migration-payloads', () => {
     expect(payloads).to.have.deep.equal([{
       "payload": {
         "fields": {
-          "title": "Bacon Cru",
-          "new-title": "Ba"
+          "title": "Break on through",
+          "track": "Br"
         }
       },
       "meta": {
@@ -793,13 +793,13 @@ describe('content-migration-payloads', () => {
           "type": "contentField/copy",
           "meta": {
             "contentTypeInstanceId": "content/song/0",
-            "fieldInstanceId": "fields/title/new-title/0"
+            "fieldInstanceId": "fields/title/track/0"
           },
           "payload": {
             "contentTypeId": "song",
             "transform": (content) => (content.slice(0, 2)),
             "fromId": "title",
-            "toId": "new-title"
+            "toId": "track"
           }
         }
       ]
@@ -871,7 +871,7 @@ describe('content-migration-payloads', () => {
           "title": {
             "en-US": "The arrival"
           },
-          "new-title": {
+          "track": {
             "en-US": "Th"
           }
         }

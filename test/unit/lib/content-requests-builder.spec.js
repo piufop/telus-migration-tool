@@ -9,16 +9,16 @@ describe('content-requests-builder', () => {
       "payload": {
         "fields": {
           "title": {
-            "en-US": "Bacon Cru"
+            "en-US": "Break on through"
           },
-          "new-title": {
-            "en-US": "Bacon Cru"
+          "track": {
+            "en-US": "Break on through"
           },
           "name": {
-            "en-US": "Open Doors"
+            "en-US": "The Doors"
           },
-          "album-name": {
-            "en-US": "Open Doors"
+          "albumName": {
+            "en-US": "The Doors"
           }
         }
       },
@@ -44,16 +44,16 @@ describe('content-requests-builder', () => {
         data: {
           fields: {
             'title': {
-              'en-US': 'Bacon Cru'
+              'en-US': 'Break on through'
             },
-            'new-title': {
-              'en-US': 'Bacon Cru'
+            'track': {
+              'en-US': 'Break on through'
             },
             'name': {
-              'en-US': 'Open Doors'
+              'en-US': 'The Doors'
             },
-            'album-name': {
-              'en-US': 'Open Doors'
+            'albumName': {
+              'en-US': 'The Doors'
             }
           }
         }

@@ -9,7 +9,7 @@ describe('content-migration-steps', () => {
       const contentMigrationScript = (migration) => {
         if (migration.supportsContent) {
           const songContent = migration.editContent('song');
-          songContent.copyField('author').toField('new-author');
+          songContent.copyField('author').toField('singer');
         }
       };
       createSteps(contentMigrationScript).then((steps) => {
@@ -18,12 +18,12 @@ describe('content-migration-steps', () => {
         expect(steps[0].type).to.equal('contentField/copy');
         expect(steps[0].meta).to.include({
           contentTypeInstanceId: 'content/song/0',
-          fieldInstanceId: 'fields/author/new-author/0'
+          fieldInstanceId: 'fields/author/singer/0'
         });
         expect(steps[0].payload).to.include({
           contentTypeId: 'song',
           fromId: 'author',
-          toId: 'new-author'
+          toId: 'singer'
         });
         done();
       });
@@ -63,7 +63,7 @@ describe('content-migration-steps', () => {
     const contentMigrationScript1 = (migration) => {
       if (migration.supportsContent) {
         const songContent = migration.editContent('song');
-        songContent.copyField('author').transform(transformation).toField('new-author');
+        songContent.copyField('author').transform(transformation).toField('singer');
       }
     };
 
@@ -74,13 +74,13 @@ describe('content-migration-steps', () => {
         type: 'contentField/copy',
         meta: {
           contentTypeInstanceId: 'content/song/0',
-          fieldInstanceId: 'fields/author/new-author/0'
+          fieldInstanceId: 'fields/author/singer/0'
         },
         payload: {
           contentTypeId: 'song',
           transform: transformation,
           fromId: 'author',
-          toId: 'new-author'
+          toId: 'singer'
         }
       });
       done();

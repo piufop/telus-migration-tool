@@ -11,12 +11,12 @@ describe('content-type-ids-in-plan', () => {
           "type": "contentField/copy",
           "meta": {
             "contentTypeInstanceId": "content/song/0",
-            "fieldInstanceId": "fields/song/newName/0"
+            "fieldInstanceId": "fields/song/track/0"
           },
           "payload": {
             "contentTypeId": "song",
             "fromId": "song",
-            "toId": "newName"
+            "toId": "track"
           }
         }
       ],
@@ -24,13 +24,13 @@ describe('content-type-ids-in-plan', () => {
         {
           "type": "contentField/copy",
           "meta": {
-            "contentTypeInstanceId": "content/song1/0",
-            "fieldInstanceId": "fields/song1/newName2/0"
+            "contentTypeInstanceId": "content/book/0",
+            "fieldInstanceId": "fields/title/editor/0"
           },
           "payload": {
-            "contentTypeId": "song1",
-            "fromId": "song1",
-            "toId": "newName2"
+            "contentTypeId": "book",
+            "fromId": "author",
+            "toId": "editor"
           }
         }
       ]
@@ -40,7 +40,7 @@ describe('content-type-ids-in-plan', () => {
 
     expect(contentTypeIds).to.be.a('Array');
     expect(contentTypeIds).to.have.length(2);
-    expect(contentTypeIds).to.deep.equal(['song', 'song1']);
+    expect(contentTypeIds).to.deep.equal(['song', 'book']);
   });
 
   it('get content type ids from transformation plan', () => {
